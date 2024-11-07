@@ -29,9 +29,39 @@ Total profit refers to operating profit minus non-operating costs. These costs c
 
 ## Data
 ### Commercial Revenue
+All individuals that were sampled for the 2022 cost survey are owners of federally-permitted commercial fishing vessels active in 2021 or 2022. All federally-permitted vessels are required to sell their catch to federally-licensed seafood dealers. The sales data for 2022 commercial fishing revenue derived from landings occurring in the Northeast region (ME to Cape Hatteras, NC) was accessed through the CAMS_LAND table. This table includes all revenues as recorded in dealer reports, in addition to variables from other data sources, such as Vessel Trip Reports (VTRs) and Permit data. All vessels included in the profit snapshots generated commercial fishing revenue >$0 during 2022.
+
+Primary gear was defined according to the largest contributor to total commercial vessel revenue during 2022. Gear type was derived first from the CAMS_LAND table, using the variable NEGEAR. The gear code was then merged to a dataset of gear groupings constructed as part of the cost survey sampling frame. The dataset groups together NEGEAR codes that are similar into broader categories; for example bottom trawl and midwater trawl both fall into the trawl category. The resulting primary gear groups are as follows: gillnet, handgear, hydraulic dredge, longline, pot/trap, scallop dredge, seine, trawl, and unknown. Due to low response levels for some primary gear groups, results are unable to be presented.
+
+Primary fishery was defined according to the largest contributor to total commercial vessel revenue during 2022. Fishery was first derived from the CAMS_LAND table, using the variable ITIS_GROUP1 to define species. Species were then grouped into Fishery Management Plans (FMPs) according to the table CFG_ITIS. Fisheries include all FMPs under the New England and Mid-Atlantic Fishery Management Councils, as well as American lobster, managed by the Atlantic States Marine Fisheries Commission. All other fisheries are grouped into “Other”. Due to low response levels for some primary fisheries, results are unable to be presented.
+
 ### For-Hire Revenue
+While the 2022 cost survey was sent to vessels engaged in commercial fishing during 2021 or 2022, some of these vessels also engage in for-hire fishing. In order to most accurately capture vessel-level profits, it is important to include this additional source of revenue when vessels participated in recreational fishing and had commercial revenues greater than $0.00.
+
+Multiple sources were utilized for the estimation of vessel for-hire revenues. First, all 2022 party/charter trips were retrieved from the VESLOG2022T table, in which party/charter trips were defined according to the variable TRIPCATG. Other variables retained from the VESLOG2022T table for these trips include the number of anglers (NANGLERS) and landing state (STATE). Next, average angler charter/guide fees by state were retrieved from the results of the 2022 National Angler Expenditure Survey administered by NOAA Fisheries. State-level averages were used in light of the variability in fees by state within the Northeast region (ME-NC) as well as the high level of response for each state. The average angler fee was then multiplied by the number of anglers for each 2022 party/charter trip by state. Finally, the trip-level revenue and cost calculations were summedcalculated to achieve an annual vessel-level value.calculatedsummed to the vessel-level.
+
 ### Survey Costs
+The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Some manipulation of the data was required to make it usable at the vessel/annual level. These data manipulation steps are summarized below.
+
+Operating Costs: Survey respondents were given the option of providing operating costs such as fuel, bait, and ice either at the annual level or as an average by trip. For those respondents who filled in the average cost by trip, the value was multiplied by the number of commercial trips during 2022. In general, the number of trips was used directly from the survey (Q2). In cases where this information was not filled in, the number of trips was retrieved from the CAMS_LAND table in which a unique combination of VTR DOCID and Landing Date represented a vessel trip.
+
+Overhead Costs: Survey respondents were given the option of providing these costs either at the vessel level or at the business level. For those respondents who filled in business level costs, the value was divided by the number of vessels owned by the respondent during 2022. The number of vessels owned was taken directly from the survey (Q13).
+
+Quota Leasing Costs: Survey respondents were given the option to provide quota leasing costs either at the vessel-level or across multiple vessels. If this cost was provided across multiple vessels, the value was divided by the specific number of vessels the quota leasing cost was attributed to (Q17).
+
+Other Costs: At the end of the survey, respondents were given the opportunity to list other costs that were not included in the survey. When other costs were listed, they were evaluated on a case-by-case basis (see Werner et al. 2024). Those that could not be allocated to an existing cost category were excluded from the profit calculation.
+
+
 ### Other Costs
+#### Observer Costs
+As covered in the previous section, the 2022 cost survey queried a variety of expenses faced by vessel owners. During pre-testing of the survey instrument, fishing industry members generally felt that the survey did a good job of including all significant costs. Furthermore, comments on the survey itself and a lack of other costs filled in by respondents indicated the survey covered significant costs. However there are two costs, crew supplies and freshwater, that are collected by at-sea observers that were not included in the 2022 cost survey. 
+
+To capture these costs, data from the observer programs was used to calculate average costs per trip by gear. First, all 2022 trips from the tables OBTRP and ASMTRP were retrieved, with the relevant cost variables SUPPLYCOST and WATERCOST. Next, primary gear by trip was defined by using the CAMS_LAND table, and the same process highlighted in the Commercial Revenue section. An intermediate table (MATCH_OBS) was then used to merge the CAMS data with the observer data. Once merged, the average crew supply and freshwater trip costs by gear type were calculated. These averages were merged by gear with all of the trips taken by survey responding vessels during 2022. Finally, trip-level costs were summed to the vessel-level.
+
+#### Depreciation
+The final cost component included in the profit calculation is vessel depreciation. Ideally, a different depreciation value would be assigned to each capital component (e.g. electronics, engine, hull) using the age of the equipment. This method would require additional information beyond that collected in the 2022 cost survey.
+
+The cost survey does ask for information on Vessel Value. However, responses to this question was lower than most other survey questions. Part of the lower number of values provided for this question is the option for “I Prefer not to Answer” was  included. This option was not included for any other survey questions. In light of the lower response rate, an alternate method was used to estimate vessel value. The method used the responses from the 2022 survey and previous cost surveys to estimate shadow values of vessel characteristics such as age, length, and type of construction. The first step in performing this estimation involved merging in vessel characteristics from the PERMIT_VPS_VESSEL table. A depreciation cost was applied to the vessel value at different rates depending on the age of the vessel. 
 
 # Results
 
