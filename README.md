@@ -100,6 +100,14 @@ fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Pr
 
 gear_fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_summary/gear_fmp_cost_no_conf.csv")
 
+## Cost Distributions
+
+gear_dist<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_cost_cat_perc.csv")
+
+fmp_dist<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/fmp_cost_cat_perc.csv")
+
+gear_fmp_dist<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_fmp_cost_cat_perc.csv")
+
 # Operating Profit Results
 
 
